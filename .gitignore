@@ -1,0 +1,31 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+.Python
+*.so
+
+# Environment
+.env
+.venv/
+venv/
+
+# Database
+*.db
+*.sqlite3
+
+# IDE
+.vscode/
+.idea/
+
+# Research PDFs (exclude large files)
+refernce/files/
+intel/files/
+taiwan/files/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Session files
+SESSION_MEMORY_*.md

@@ -1,0 +1,49 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Project Sentinel OSINT Signal",
+  "type": "object",
+  "required": ["collected_at_utc", "source_type", "url", "title", "summary", "entities", "risk_markers"],
+  "properties": {
+    "collected_at_utc": { "type": "string", "format": "date-time" },
+    "source_type": { "type": "string", "enum": ["web", "academic_db", "sns"] },
+    "source_name": { "type": "string" },
+    "url": { "type": "string" },
+    "lang": { "type": "string", "default": "english" },
+    "title": { "type": "string" },
+    "summary": { "type": "string", "maxLength": 1200 },
+    "entities": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["name", "type", "confidence"],
+        "properties": {
+          "name": { "type": "string" },
+          "type": { "type": "string", "enum": ["org", "person", "program", "technology", "facility", "country"] },
+          "confidence": { "type": "number", "minimum": 0, "maximum": 1 }
+        }
+      }
+    },
+    "risk_markers": {
+      "type": "object",
+      "required": ["hbm", "packaging", "export_controls", "sanctions", "disruption"],
+      "properties": {
+        "hbm": { "type": "number", "minimum": 0, "maximum": 1 },
+        "packaging": { "type": "number", "minimum": 0, "maximum": 1 },
+        "export_controls": { "type": "number", "minimum": 0, "maximum": 1 },
+        "sanctions": { "type": "number", "minimum": 0, "maximum": 1 },
+        "disruption": { "type": "number", "minimum": 0, "maximum": 1 }
+      }
+    },
+    "extracted_claims": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["claim_text", "confidence"],
+        "properties": {
+          "claim_text": { "type": "string" },
+          "confidence": { "type": "number", "minimum": 0, "maximum": 1 }
+        }
+      }
+    }
+  }
+}
