@@ -1,5 +1,8 @@
 # Project Sentinel
-
+![Status](https://img.shields.io/badge/Status-Prototype-orange?style=for-the-badge)
+![Security](https://img.shields.io/badge/Security-Economic%20Security-blue?style=for-the-badge)
+![Stack](https://img.shields.io/badge/Tech-Python%20%7C%20PostgreSQL-green?style=for-the-badge&logo=python)
+![Focus](https://img.shields.io/badge/Focus-HBM%20Supply%20Chain-red?style=for-the-badge)
 OSINT-driven supply chain risk assessment system for semiconductor chokepoints.
 
 ## Features
@@ -68,3 +71,6 @@ OSINT-driven supply chain risk assessment system for semiconductor chokepoints.
 ## License
 
 MIT
+---
+### ⚠️ Disclaimer
+This repository is a **research prototype** developed to demonstrate the technical feasibility of AI-augmented export controls. It uses open-source data (OSINT) only. No classified military intelligence or proprietary trade secrets were accessed during its development.
