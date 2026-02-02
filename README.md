@@ -5,6 +5,37 @@
 ![Focus](https://img.shields.io/badge/Focus-HBM%20Supply%20Chain-red?style=for-the-badge)
 OSINT-driven supply chain risk assessment system for semiconductor chokepoints.
 
+## The Silicon Kill-Chain
+
+```mermaid
+graph LR
+    subgraph Korea["🇰🇷 South Korea (Chokepoint)"]
+        SK[SK Hynix] --> HBM[HBM3E Production]
+        SAM[Samsung] --> HBM
+    end
+
+    subgraph Routes["Distribution Routes"]
+        HBM --> LEGAL[Legal Export]
+        HBM --> DIVERT[Diversion Risk]
+    end
+
+    subgraph EndUsers["End Users"]
+        LEGAL --> US[🇺🇸 US Data Centers]
+        LEGAL --> TW[🇹🇼 TSMC Integration]
+        DIVERT --> PROXY[Shell Companies]
+        PROXY --> CN[🇨🇳 Restricted Entities]
+    end
+
+    subgraph Detection["🔍 Project Sentinel"]
+        OSINT[OSINT Signals] --> ANALYZE[Risk Pipeline]
+        ANALYZE --> ALERT[Anomaly Detection]
+    end
+
+    DIVERT -.->|monitors| OSINT
+```
+
+**Figure 1: Visualizing South Korea's HBM Production as the Global AI Chokepoint.**
+
 ## Features
 
 - **HBM Supply Chain Monitoring**: Track High Bandwidth Memory flows from Korean chokepoints
@@ -15,16 +46,16 @@ OSINT-driven supply chain risk assessment system for semiconductor chokepoints.
 ## Architecture
 
 ```
-┌─────────────────┐     ┌──────────────────┐     ┌─────────────────┐
-│  OSINT Signals  │────▶│  Risk Pipeline   │────▶│   Dashboard     │
-│  (signals.jsonl)│     │  (sentinel.py)   │     │  (SQL views)    │
-└─────────────────┘     └──────────────────┘     └─────────────────┘
-                               │
-                               ▼
-                        ┌──────────────────┐
-                        │   PostgreSQL     │
-                        │   (schema2.sql)  │
-                        └──────────────────┘
+┌─────────────────────┐     ┌──────────────────────┐     ┌─────────────────┐
+│    OSINT Signals    │────▶│    Risk Pipeline     │────▶│    Dashboard    │
+│ (data/signals.jsonl)│     │  (src/sentinel.py)   │     │   (SQL views)   │
+└─────────────────────┘     └──────────────────────┘     └─────────────────┘
+                                     │
+                                     ▼
+                              ┌──────────────────┐
+                              │    PostgreSQL    │
+                              │(data/Schema2.sql)│
+                              └──────────────────┘
 ```
 
 ## Quick Start
@@ -48,12 +79,12 @@ OSINT-driven supply chain risk assessment system for semiconductor chokepoints.
 
 4. Initialize database
    ```bash
-   psql -f schema2.sql
+   psql -f data/Schema2.sql
    ```
 
 5. Run pipeline
    ```bash
-   python sentinel.py
+   python src/sentinel.py
    ```
 
 ## Database Schema
@@ -65,8 +96,8 @@ OSINT-driven supply chain risk assessment system for semiconductor chokepoints.
 
 ## Key Queries
 
-- `analytics.sql`: Multi-hop smuggling route detection via recursive CTE
-- `dashboardd.sql`: Risk assessment visualization queries
+- `data/analytics.sql`: Multi-hop smuggling route detection via recursive CTE
+- `data/dashboardd.sql`: Risk assessment visualization queries
 
 ## License
 
